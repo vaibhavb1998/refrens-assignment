@@ -14,6 +14,7 @@ function getStatusColor(status) {
 // ==============================|| CHARACTER CARD ||============================== //
 
 export default function CharacterCard({
+  id,
   name,
   status,
   species,
@@ -21,6 +22,7 @@ export default function CharacterCard({
   origin,
   location,
   image,
+  handleOnClick,
 }) {
   return (
     <div className="rounded-xl sm:flex space-x-6 bg-white bg-opacity-50 shadow-md hover:shadow-xl overflow-hidden min-h-[320px] lg:min-h-[280px] transition-all">
@@ -53,6 +55,13 @@ export default function CharacterCard({
             <h2 className="text-md font-semibold">Location</h2>
             <p className="text-xl text-gray-600">{location}</p>
           </div>
+          <button
+            type="button"
+            onClick={() => handleOnClick({ id })}
+            className="text-2xl mt-4 border-2 px-4 py-2"
+          >
+            View Character
+          </button>
         </div>
       </div>
     </div>
@@ -60,6 +69,7 @@ export default function CharacterCard({
 }
 
 CharacterCard.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   species: PropTypes.string.isRequired,
@@ -67,4 +77,5 @@ CharacterCard.propTypes = {
   origin: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  handleOnClick: PropTypes.func.isRequired,
 };

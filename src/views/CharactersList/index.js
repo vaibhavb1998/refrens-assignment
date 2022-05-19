@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // ui-components
 import CharacterCard from "../../ui-components/CharacterCard";
@@ -11,6 +12,7 @@ import { getCharactersList } from "../../store/reducers/character.reducer";
 // ==============================|| CHARACTERS LIST ||============================== //
 
 export default function CharactersList() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.character.results);
   const pageInfo = useSelector((state) => state.character.info);
@@ -33,6 +35,10 @@ export default function CharactersList() {
     fetchCharactersList(pageInfo.prev);
   }, [pageInfo.prev]);
 
+  const handleOnClick = ({ id }) => {
+    navigate(`/character/${id}`);
+  };
+
   return (
     <div className="space-y-20">
       <h1 className="text-center font-bold text-8xl">Rick & Morty</h1>
@@ -41,6 +47,7 @@ export default function CharactersList() {
         {characters.map((character) => (
           <CharacterCard
             key={character.id}
+            id={character.id}
             name={character.name}
             status={character.status}
             species={character.species}
@@ -48,6 +55,7 @@ export default function CharactersList() {
             origin={character.origin.name}
             location={character.location.name}
             image={character.image}
+            handleOnClick={handleOnClick}
           />
         ))}
       </div>
